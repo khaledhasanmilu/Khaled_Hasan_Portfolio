@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khaled Hasan Milu | Software Engineer</title>
+    <meta
+      name="description"
+      content="Khaled Hasan Milu — Software Engineer from Dhaka, Bangladesh. Engineering ideas into reality through clean, scalable, real-world software."
+    />
+    <meta name="theme-color" id="themeColorMeta" content="#04050a" />
+    <meta name="author" content="Khaled Hasan Milu" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1"
+    />
+    <link rel="canonical" href="https://khaledhasanmilu.netlify.app/" />
+    <meta name="geo.region" content="BD-13" />
+    <meta name="geo.placename" content="Dhaka, Bangladesh" />
+    <meta name="geo.position" content="23.8103;90.4125" />
+    <meta name="ICBM" content="23.8103, 90.4125" />
+    <meta property="og:title" content="Khaled Hasan Milu | Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software Engineer from Dhaka, Bangladesh. Engineering ideas into reality."
+    />
+    <meta property="og:type" content="profile" />
+    <meta property="profile:first_name" content="Khaled Hasan" />
+    <meta property="profile:last_name" content="Milu" />
+    <meta property="og:site_name" content="KHALED.EXE" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://khaledhasanmilu.netlify.app/" />
+    <meta
+      property="og:image"
+      content="https://khaledhasanmilu.netlify.app/images/share-card.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Khaled Hasan Milu — Software Engineer, Dhaka, Bangladesh"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KHALED.EXE — Khaled Hasan Milu" />
+    <meta
+      name="twitter:description"
+      content="Software Engineer from Dhaka, Bangladesh. Engineering ideas into reality."
+    />
+    <meta
+      name="twitter:image"
+      content="https://khaledhasanmilu.netlify.app/images/share-card.png"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2304050a'/><text x='50' y='64' font-size='54' fill='%233d7bff' font-family='monospace' text-anchor='middle'>K</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Khaled Hasan Milu",
+        "url": "https://khaledhasanmilu.netlify.app/",
+        "image": "https://khaledhasanmilu.netlify.app/images/khaled-profile.png",
+        "jobTitle": "Software Engineer",
+        "email": "mailto:kh.milu338@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dhaka",
+          "addressCountry": "BD"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "United International University"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/khaledhasanmilu/",
+          "https://github.com/khaledhasanmilu/",
+          "https://dev.to/khaledhasanmilu",
+          "https://codeforces.com/profile/khaledhasan104"
+        ],
+        "knowsAbout": [
+          "Full-stack development",
+          "React",
+          "Node.js",
+          "TypeScript",
+          "MySQL",
+          "Data Science"
+        ]
+      }
+    </script>
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("khaled-exe-theme");
+          if (saved) document.documentElement.setAttribute("data-theme", saved);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body class="is-loading">
+    <a href="#home" class="skip-link">Skip to content</a>
+    <div class="bg-fx" id="bgFx" aria-hidden="true">
+      <div class="bg-fx__dots"></div>
+    </div>
+
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="loader__title">KHALED<span>.EXE</span></div>
+      <div class="loader__log" id="bootLog"></div>
+      <div class="loader__bar"><span id="loaderFill"></span></div>
+    </div>
+
+    <script>
+      (function () {
+        function killLoader() {
+          var l = document.getElementById("loader");
+          if (l) {
+            l.classList.add("is-hidden");
+            setTimeout(function () {
+              l.style.display = "none";
+            }, 700);
+          }
+          document.body.classList.remove("is-loading");
+        }
+        window.__khaledKillLoader = killLoader;
+        window.setTimeout(killLoader, 4000);
+      })();
+    </script>
+    <noscript>
+      <style>
+        .loader {
+          display: none !important;
+        }
+        body {
+          overflow: auto !important;
+        }
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <span class="cursor__line cursor__line--h"></span>
+      <span class="cursor__line cursor__line--v"></span>
+      <span class="cursor__dot"></span>
+      <span class="cursor__coords" id="cursorCoords">X:000 Y:000</span>
+    </div>
+
+    <div class="hud-rail" aria-hidden="true">
+      <span class="hud-rail__section" id="hudSection">LOG_00</span>
+      <div class="hud-rail__track">
+        <div class="hud-rail__fill" id="hudFill"></div>
+      </div>
+      <span class="hud-rail__label">SCROLL</span>
+    </div>
+
+    <!-- Fixed social rail (left) -->
+    <aside class="social-rail" aria-label="Social links">
+      <a
+        href="https://github.com/khaledhasanmilu/"
+        target="_blank"
+        rel="noopener"
+        data-label="GitHub"
+        aria-label="GitHub"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+          />
+        </svg>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/khaledhasanmilu/"
+        target="_blank"
+        rel="noopener"
+        data-label="LinkedIn"
+        aria-label="LinkedIn"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+          />
+          <rect x="2" y="9" width="4" height="12" />
+          <circle cx="4" cy="4" r="2" />
+        </svg>
+      </a>
+      <a
+        href="mailto:kh.milu338@gmail.com"
+        data-label="Email"
+        aria-label="Email"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+          />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+      </a>
+      <button
+        class="rail-fx"
+        data-fx-toggle
+        aria-pressed="true"
+        data-label="Background FX on/off"
+        aria-label="Toggle background effects"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="6" cy="6" r="1.3" />
+          <circle cx="12" cy="6" r="1.3" />
+          <circle cx="18" cy="6" r="1.3" />
+          <circle cx="6" cy="12" r="1.3" />
+          <circle cx="12" cy="12" r="1.3" />
+          <circle cx="18" cy="12" r="1.3" />
+          <circle cx="6" cy="18" r="1.3" />
+          <circle cx="12" cy="18" r="1.3" />
+          <circle cx="18" cy="18" r="1.3" />
+        </svg>
+      </button>
+      <span class="social-rail__sep" aria-hidden="true"></span>
+      <button
+        class="rail-term"
+        data-term-open
+        data-label="Terminal (Ctrl K)"
+        aria-label="Open terminal"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="4 17 10 11 4 5" />
+          <line x1="12" y1="19" x2="20" y2="19" />
+        </svg>
+      </button>
+    </aside>
+
+    <header>
+      <div class="container">
+        <a href="#home" class="logo" data-nav data-text="KHALED.EXE"
+          >KHALED<span>.EXE</span></a
+        >
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#about" data-nav>01_About</a></li>
+            <li><a href="#work" data-nav>02_Work</a></li>
+            <li><a href="#skills" data-nav>03_Stack</a></li>
+            <li><a href="#experience" data-nav>04_History</a></li>
+            <li><a href="#education" data-nav>05_Education</a></li>
+            <li><a href="#github" data-nav>06_GitHub</a></li>
+            <li><a href="#contact" data-nav>07_Contact</a></li>
+          </ul>
+          <div class="mode-switch" role="group" aria-label="Theme mode switch">
+            <button
+              class="mode-btn"
+              data-theme-btn="signal"
+              aria-pressed="true"
+              aria-label="Signal theme"
+            ></button>
+            <button
+              class="mode-btn"
+              data-theme-btn="matrix"
+              aria-pressed="false"
+              aria-label="Matrix theme"
+            ></button>
+            <button
+              class="mode-btn"
+              data-theme-btn="amber"
+              aria-pressed="false"
+              aria-label="Amber theme"
+            ></button>
+            <button
+              class="mode-btn"
+              data-theme-btn="lumen"
+              aria-pressed="false"
+              aria-label="Lumen theme"
+            ></button>
+          </div>
+          <button
+            class="nav-toggle"
+            id="navToggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#about" data-nav>01_About</a>
+      <a href="#work" data-nav>02_Work</a>
+      <a href="#skills" data-nav>03_Stack</a>
+      <a href="#experience" data-nav>04_History</a>
+      <a href="#education" data-nav>05_Education</a>
+      <a href="#github" data-nav>06_GitHub</a>
+      <a href="#contact" data-nav>07_Contact</a>
+      <div
+        class="mode-switch"
+        role="group"
+        aria-label="Theme mode switch (mobile)"
+      >
+        <button
+          class="mode-btn"
+          data-theme-btn="signal"
+          aria-pressed="true"
+          aria-label="Signal theme"
+        ></button>
+        <button
+          class="mode-btn"
+          data-theme-btn="matrix"
+          aria-pressed="false"
+          aria-label="Matrix theme"
+        ></button>
+        <button
+          class="mode-btn"
+          data-theme-btn="amber"
+          aria-pressed="false"
+          aria-label="Amber theme"
+        ></button>
+        <button
+          class="mode-btn"
+          data-theme-btn="lumen"
+          aria-pressed="false"
+          aria-label="Lumen theme"
+        ></button>
+      </div>
+    </div>
+
+    <main id="main">
+      <!-- HERO -->
+      <section class="hero" id="home" data-log="LOG_00">
+        <div class="container">
+          <div class="hero__content">
+            <div class="hero__status">
+              SOFTWARE ENGINEER | DHAKA, BANGLADESH
+            </div>
+            <h1 class="reveal">
+              I turn complex problems into elegant digital solutions.
+            </h1>
+            <p class="hero__desc reveal">
+              I'm Khaled Hasan Milu — a software engineer based in Dhaka,
+              Bangladesh, focused on building clean, scalable, and genuinely
+              useful products. I work across the stack, from interface to
+              database, turning ideas into working systems.
+            </p>
+            <div class="hero__terminal reveal mono">
+              <span class="prompt">khaled@dhaka:~$</span
+              ><span id="heroTyped"></span><span class="cursor-blink"></span>
+            </div>
+            <div class="hero__cta reveal">
+              <a href="#work" class="btn btn--primary" data-nav
+                >Explore My Work</a
+              >
+              <a
+                href="resume.pdf"
+                class="btn btn--ghost"
+                target="_blank"
+                rel="noopener"
+                >View CV</a
+              >
+            </div>
+          </div>
+
+          <div class="hero__portrait reveal">
+            <div
+              class="code-card"
+              id="portraitFrame"
+              aria-label="Developer profile card"
+            >
+              <div class="term-bar">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span><span>khaled.ts</span>
+              </div>
+              <pre
+                class="code-card__body mono"
+              ><code><span class="cl" style="--i:0"><span class="c">// profile.ts</span></span><span class="cl" style="--i:1"><span class="k">const</span> <span class="p">khaled</span> = {</span><span class="cl" style="--i:2">  <span class="p">role</span>: <span class="s">"Software Engineer"</span>,</span><span class="cl" style="--i:3">  <span class="p">based</span>: <span class="s">"Dhaka, Bangladesh"</span>,</span><span class="cl" style="--i:4">  <span class="p">education</span>: <span class="s">"BSc CSE · Data Science"</span>,</span><span class="cl" style="--i:5">  <span class="p">university</span>: <span class="s">"UIU"</span>,</span><span class="cl" style="--i:6">  <span class="p">cgpa</span>: <span class="n">3.83</span>,</span><span class="cl" style="--i:7">  <span class="p">stack</span>: [<span class="s">"React"</span>, <span class="s">"Node.js"</span>, <span class="s">"TypeScript"</span>, <span class="s">"MySQL"</span>],</span><span class="cl" style="--i:8">  <span class="p">projects</span>: [<span class="s">"OAB Express"</span>, <span class="s">"LifeSync"</span>, <span class="s">"UniHub"</span>],</span><span class="cl" style="--i:9">  <span class="p">status</span>: <span class="s">"ACTIVE"</span>,</span><span class="cl" style="--i:10">};</span><span class="cl" style="--i:11"><span class="k">export default</span> <span class="p">khaled</span>;</span></code></pre>
+              <div class="code-card__status mono">
+                <span><i class="live-dot"></i> main</span><span>UTF-8</span
+                ><span>TypeScript</span>
+              </div>
+              <div class="scan-sweep" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="scroll-indicator"
+          id="scrollIndicator"
+          data-nav
+          aria-label="Scroll to About section"
+        >
+          <span>SCROLL</span>
+        </button>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="section" id="about" data-log="LOG_01">
+        <span class="log-tag mono">ABOUT.SYS</span>
+        <div class="container">
+          <div class="about__grid">
+            <div class="about__binary mono" aria-hidden="true">
+              01001011 01001000<br />01000001 01001100<br />01000101 01000100<br />
+              01001011 01001000<br />01000001 01001100<br />01000101 01000100
+            </div>
+            <div class="about__photo reveal">
+              <div class="photo-card">
+                <span class="photo-card__glow" aria-hidden="true"></span>
+                <span class="photo-card__dots" aria-hidden="true"></span>
+                <span class="photo-card__ring" aria-hidden="true"></span>
+                <div class="photo-card__frame">
+                  <img
+                    src="images/khaled-profile.png"
+                    alt="Khaled Hasan Milu"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="about__body reveal">
+              <div class="eyebrow">LOG_01 // ABOUT</div>
+              <h2>Beyond the Code.</h2>
+              <p class="about__statement">
+                I'm a Computer Science student and software engineer who
+                believes good engineering is invisible — it just works.
+              </p>
+              <p>
+                I'm currently pursuing a BSc in Computer Science and
+                Engineering, majoring in Data Science, at United International
+                University (UIU), Dhaka. Outside coursework, I build full-stack
+                applications that solve real, specific problems — not
+                hypothetical ones.
+              </p>
+              <p>
+                I care about clarity over cleverness: readable code, sensible
+                architecture, and interfaces that respect the person using them.
+              </p>
+              <ul class="about__facts">
+                <li>
+                  <strong>Degree</strong> BSc in CSE, Major in Data Science
+                </li>
+                <li>
+                  <strong>University</strong> United International University
+                  (UIU)
+                </li>
+                <li><strong>CGPA</strong> 3.83 / 4.00</li>
+                <li><strong>Based In</strong> Dhaka, Bangladesh</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="section" id="work" data-log="LOG_02">
+        <span class="log-tag mono">PROJECTS.SYS</span>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="eyebrow">LOG_02 // SELECTED WORK</div>
+            <h2>Things I've Built.</h2>
+          </div>
+
+          <div class="pj">
+            <div
+              class="pj__side"
+              id="pjTabs"
+              role="tablist"
+              aria-label="Project categories"
+            ></div>
+            <div
+              class="pj__main"
+              id="pjMain"
+              role="tabpanel"
+              aria-live="polite"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="section" id="skills" data-log="LOG_03">
+        <span class="log-tag mono">STACK.SYS</span>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="eyebrow">LOG_03 // TECH STACK</div>
+            <h2>Tools of the Trade.</h2>
+          </div>
+          <div class="skills__filters reveal">
+            <button class="filter-btn is-active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="programming">
+              PROGRAMMING
+            </button>
+            <button class="filter-btn" data-filter="frontend">FRONTEND</button>
+            <button class="filter-btn" data-filter="backend">BACKEND</button>
+            <button class="filter-btn" data-filter="database">DATABASE</button>
+            <button class="filter-btn" data-filter="tools">TOOLS</button>
+          </div>
+          <div class="skills__grid reveal" id="skillsGrid"></div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="section" id="experience" data-log="LOG_04">
+        <span class="log-tag mono">HISTORY.SYS</span>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="eyebrow">LOG_04 // EXPERIENCE</div>
+            <h2>Where I've Contributed.</h2>
+          </div>
+          <div class="timeline">
+            <div class="timeline__item reveal">
+              <span class="timeline__date mono">AUG 2025 — OCT 2026</span>
+              <h3>Undergraduate Teaching Assistant</h3>
+              <p class="org">United International University (UIU)</p>
+              <p class="desc">
+                Assisting faculty with coursework, labs, and student support for
+                undergraduate CSE courses.
+              </p>
+            </div>
+            <div class="timeline__item reveal">
+              <span class="timeline__date mono">NOV 2025 — OCT 2026</span>
+              <h3>Organizing Secretary</h3>
+              <p class="org">UIU Robotics Club</p>
+              <p class="desc">
+                Coordinating club events, logistics, and member engagement
+                initiatives.
+              </p>
+            </div>
+            <div class="timeline__item reveal">
+              <span class="timeline__date mono">2025</span>
+              <h3>Organizer</h3>
+              <p class="org">UIU CSE Fest 2025</p>
+              <p class="desc">
+                Helped plan and run the department's annual CSE Fest event.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EDUCATION -->
+      <section class="section" id="education" data-log="LOG_05">
+        <span class="log-tag mono">EDUCATION.SYS</span>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="eyebrow">LOG_05 // EDUCATION &amp; ACHIEVEMENTS</div>
+            <h2>Foundation &amp; Milestones.</h2>
+          </div>
+          <div class="education__grid">
+            <div class="reveal">
+              <div class="edu-card">
+                <span class="edu-card__date mono">2022 — 2026</span>
+                <h3>BSc in Computer Science &amp; Engineering</h3>
+                <p>
+                  Major in Data Science — United International University (UIU)
+                </p>
+                <p>CGPA: 3.83 / 4.00</p>
+              </div>
+              <div class="edu-card">
+                <span class="edu-card__date mono">2018 — 2020</span>
+                <h3>Higher Secondary Certificate (Science)</h3>
+                <p>Police Lines School and College</p>
+              </div>
+            </div>
+            <ul class="achievements reveal">
+              <li>
+                <strong>3rd Runner-Up</strong> UIU CSE Project Show — Advanced
+                OOP Category
+              </li>
+              <li>
+                <strong>Merit-Based Scholarship</strong> Tuition waiver awarded
+                on academic merit
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- GITHUB -->
+      <section class="section" id="github" data-log="LOG_06">
+        <span class="log-tag mono">GITHUB.SYS</span>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="eyebrow">LOG_06 // OPEN SOURCE</div>
+            <h2>GitHub.</h2>
+          </div>
+          <div class="gh__stats reveal">
+            <div class="gh-stat">
+              <strong data-gh="repos">—</strong><span>REPOSITORIES</span>
+            </div>
+            <div class="gh-stat">
+              <strong data-gh="followers">—</strong><span>FOLLOWERS</span>
+            </div>
+            <div class="gh-stat">
+              <strong data-gh="total">—</strong
+              ><span>CONTRIBUTIONS / YEAR</span>
+            </div>
+          </div>
+          <div class="gh__card reveal">
+            <div class="gh__scroll">
+              <div
+                id="ghHeat"
+                class="gh__inner"
+                aria-label="GitHub contribution graph"
+              >
+                <p class="gh__err mono">loading contribution graph…</p>
+              </div>
+            </div>
+            <div class="gh__foot">
+              <span id="ghTotal"></span>
+              <div class="gh__legend" aria-hidden="true">
+                Less <i class="l0"></i><i class="l1"></i><i class="l2"></i
+                ><i class="l3"></i><i class="l4"></i> More
+              </div>
+            </div>
+          </div>
+          <a
+            class="gh__follow mono"
+            href="https://github.com/khaledhasanmilu/"
+            target="_blank"
+            rel="noopener"
+            >Follow @khaledhasanmilu on GitHub →</a
+          >
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section" id="contact" data-log="LOG_07">
+        <span class="log-tag mono">CONTACT.SYS</span>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="eyebrow">LOG_07 // CONTACT</div>
+            <h2>Have a problem worth solving?</h2>
+          </div>
+          <div class="contact__grid">
+            <div class="term-window reveal">
+              <div class="term-bar">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span><span>contact.sh</span>
+              </div>
+              <div class="term-body">
+                <div class="term-line">
+                  <span class="prompt">$</span> cat contact.sh
+                </div>
+                <div class="term-output">
+                  <div class="term-line">
+                    EMAIL :
+                    <a href="mailto:kh.milu338@gmail.com"
+                      >kh.milu338@gmail.com</a
+                    >
+                    <button
+                      class="copy-btn"
+                      id="copyEmailBtn"
+                      data-email="kh.milu338@gmail.com"
+                    >
+                      copy
+                    </button>
+                  </div>
+                  <div class="term-line">
+                    PHONE : <a href="tel:+8801784000533">+8801784000533</a>
+                  </div>
+                  <div class="term-line">
+                    LINKEDIN :
+                    <a
+                      href="https://www.linkedin.com/in/khaledhasanmilu/"
+                      target="_blank"
+                      rel="noopener"
+                      >linkedin.com/in/khaledhasanmilu</a
+                    >
+                  </div>
+                  <div class="term-line">
+                    GITHUB :
+                    <a
+                      href="https://github.com/khaledhasanmilu/"
+                      target="_blank"
+                      rel="noopener"
+                      >github.com/khaledhasanmilu</a
+                    >
+                  </div>
+                </div>
+                <div class="copy-feedback mono" id="copyFeedback"></div>
+              </div>
+            </div>
+
+            <form class="reveal" id="contactForm" novalidate>
+              <p class="form-note">
+                Send me a message — it lands straight in my inbox. Prefer email?
+                kh.milu338@gmail.com
+              </p>
+              <input
+                type="checkbox"
+                id="botcheck"
+                class="hp"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+              />
+              <div class="form-group">
+                <label for="nameInput">Name</label>
+                <input type="text" id="nameInput" name="name" required />
+                <div class="form-error"></div>
+              </div>
+              <div class="form-group">
+                <label for="emailInput">Email</label>
+                <input type="email" id="emailInput" name="email" required />
+                <div class="form-error"></div>
+              </div>
+              <div class="form-group">
+                <label for="messageInput">Message</label>
+                <textarea
+                  id="messageInput"
+                  name="message"
+                  rows="5"
+                  required
+                ></textarea>
+                <div class="form-error"></div>
+              </div>
+              <button type="submit" class="btn btn--primary">
+                Send Message
+              </button>
+              <div id="formStatus" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer__socials">
+          <a
+            href="https://github.com/khaledhasanmilu/"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+            title="GitHub"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+              /></svg
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/khaledhasanmilu/"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+              />
+              <rect x="2" y="9" width="4" height="12" />
+              <circle cx="4" cy="4" r="2" /></svg
+          ></a>
+          <a href="mailto:kh.milu338@gmail.com" aria-label="Email" title="Email"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              />
+              <polyline points="22,6 12,13 2,6" /></svg
+          ></a>
+          <button
+            data-fx-toggle
+            aria-pressed="true"
+            aria-label="Toggle background effects"
+            title="Background FX"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="6" cy="6" r="1.3" />
+              <circle cx="12" cy="6" r="1.3" />
+              <circle cx="18" cy="6" r="1.3" />
+              <circle cx="6" cy="12" r="1.3" />
+              <circle cx="12" cy="12" r="1.3" />
+              <circle cx="18" cy="12" r="1.3" />
+              <circle cx="6" cy="18" r="1.3" />
+              <circle cx="12" cy="18" r="1.3" />
+              <circle cx="18" cy="18" r="1.3" />
+            </svg>
+          </button>
+          <button data-term-open aria-label="Open terminal" title="Terminal">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="4 17 10 11 4 5" />
+              <line x1="12" y1="19" x2="20" y2="19" />
+            </svg>
+          </button>
+        </div>
+        <p class="mono" style="font-size: 12px; color: var(--c-muted-2)">
+          © <span id="year"></span> Khaled Hasan Milu. All rights reserved.
+        </p>
+        <p class="build-info">
+          BUILD :: KHALED.EXE v2.0 · STACK :: HTML / CSS / JS (vanilla) · STATUS
+          :: ONLINE · PRESS [T] CYCLE MODE · [CTRL+K] TERMINAL
+        </p>
+      </div>
+    </footer>
+
+    <button id="backToTop" aria-label="Back to top">↑</button>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
