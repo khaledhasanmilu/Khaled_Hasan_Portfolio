@@ -2,19 +2,12 @@
 (function () {
   "use strict";
 
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function themeSystem() {
     const THEMES = ["signal", "matrix", "amber", "lumen"];
     const STORAGE_KEY = "khaled-exe-theme";
-    const colorMap = {
-      signal: "#04050a",
-      matrix: "#030805",
-      amber: "#0b0603",
-      lumen: "#f5f7fb",
-    };
+    const colorMap = { signal: "#04050a", matrix: "#030805", amber: "#0b0603", lumen: "#f5f7fb" };
     const root = document.documentElement;
     const metaTheme = document.getElementById("themeColorMeta");
     const buttons = document.querySelectorAll("[data-theme-btn]");
@@ -22,36 +15,23 @@
     function applyTheme(name) {
       if (!THEMES.includes(name)) name = "signal";
       root.setAttribute("data-theme", name);
-      try {
-        localStorage.setItem(STORAGE_KEY, name);
-      } catch (e) {}
-      if (metaTheme)
-        metaTheme.setAttribute("content", colorMap[name] || "#04050a");
+      try { localStorage.setItem(STORAGE_KEY, name); } catch (e) {}
+      if (metaTheme) metaTheme.setAttribute("content", colorMap[name] || "#04050a");
       buttons.forEach((btn) => {
-        btn.setAttribute(
-          "aria-pressed",
-          btn.getAttribute("data-theme-btn") === name ? "true" : "false",
-        );
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-btn") === name ? "true" : "false");
       });
     }
 
     let current = root.getAttribute("data-theme");
     if (!current) {
-      try {
-        current = localStorage.getItem(STORAGE_KEY);
-      } catch (e) {}
+      try { current = localStorage.getItem(STORAGE_KEY); } catch (e) {}
     }
     applyTheme(current || "signal");
 
-    buttons.forEach((btn) =>
-      btn.addEventListener("click", () =>
-        applyTheme(btn.getAttribute("data-theme-btn")),
-      ),
-    );
+    buttons.forEach((btn) => btn.addEventListener("click", () => applyTheme(btn.getAttribute("data-theme-btn"))));
 
     document.addEventListener("keydown", (e) => {
-      const tag =
-        (document.activeElement && document.activeElement.tagName) || "";
+      const tag = (document.activeElement && document.activeElement.tagName) || "";
       if (tag === "INPUT" || tag === "TEXTAREA") return;
       if (e.key.toLowerCase() === "t") {
         const now = root.getAttribute("data-theme") || "signal";
@@ -79,9 +59,7 @@
       hidden = true;
       loaderEl.classList.add("is-hidden");
       document.body.classList.remove("is-loading");
-      setTimeout(() => {
-        loaderEl.style.display = "none";
-      }, 700);
+      setTimeout(() => { loaderEl.style.display = "none"; }, 700);
     }
     window.__forceHideLoader = hideLoader;
 
@@ -116,24 +94,19 @@
 
     if (fill) {
       fill.style.transition = reducedMotion ? "none" : "width 2.2s ease";
-      requestAnimationFrame(() => {
-        fill.style.width = "100%";
-      });
+      requestAnimationFrame(() => { fill.style.width = "100%"; });
     }
 
     if (document.readyState === "complete") {
       setTimeout(hideLoader, reducedMotion ? 0 : 900);
     } else {
-      window.addEventListener("load", () =>
-        setTimeout(hideLoader, reducedMotion ? 0 : 900),
-      );
+      window.addEventListener("load", () => setTimeout(hideLoader, reducedMotion ? 0 : 900));
     }
     setTimeout(hideLoader, 2600);
   }
 
   function cursor() {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches)
-      return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const cursorEl = document.getElementById("cursor");
     const coordsEl = document.getElementById("cursorCoords");
     if (!cursorEl) return;
@@ -147,12 +120,10 @@
       }
     });
 
-    const hoverTargets =
-      "a, button, .skill-card, [data-cursor-hover], input, textarea";
+    const hoverTargets = "a, button, .skill-card, [data-cursor-hover], input, textarea";
     document.addEventListener("mouseover", (e) => {
       if (!e.target.closest(hoverTargets)) return;
-      if (e.target.closest("input, textarea"))
-        cursorEl.classList.add("is-hidden");
+      if (e.target.closest("input, textarea")) cursorEl.classList.add("is-hidden");
       else cursorEl.classList.add("is-hovering");
     });
     document.addEventListener("mouseout", (e) => {
@@ -165,8 +136,7 @@
   function headerScroll() {
     const header = document.querySelector("header");
     if (!header) return;
-    const onScroll = () =>
-      header.classList.toggle("is-scrolled", window.scrollY > 10);
+    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
@@ -178,8 +148,7 @@
 
     if (fill) {
       const onScroll = () => {
-        const docHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
         fill.style.height = `${Math.min(100, Math.max(0, pct))}%`;
       };
@@ -188,15 +157,11 @@
     }
 
     if (sectionLabel && sections.length && "IntersectionObserver" in window) {
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting)
-              sectionLabel.textContent = entry.target.getAttribute("data-log");
-          });
-        },
-        { threshold: 0.4 },
-      );
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) sectionLabel.textContent = entry.target.getAttribute("data-log");
+        });
+      }, { threshold: 0.4 });
       sections.forEach((s) => obs.observe(s));
     }
   }
@@ -217,15 +182,10 @@
       toggle.setAttribute("aria-expanded", "true");
     }
 
-    toggle.addEventListener("click", () =>
-      nav.classList.contains("is-open") ? close() : open(),
-    );
-    nav
-      .querySelectorAll("a")
-      .forEach((a) => a.addEventListener("click", close));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") close();
-    });
+    toggle.addEventListener("click", () => (nav.classList.contains("is-open") ? close() : open()));
+    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+    window.addEventListener("resize", () => { if (window.innerWidth > 1180) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
   function smoothAnchors() {
@@ -240,8 +200,7 @@
         const target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
-        const top =
-          target.getBoundingClientRect().top + window.scrollY - headerH + 1;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerH + 1;
         window.scrollTo({ top, behavior: reducedMotion ? "auto" : "smooth" });
       });
     });
@@ -256,17 +215,14 @@
       return;
     }
 
-    const obs = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
-    );
+    const obs = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
 
     items.forEach((el) => obs.observe(el));
   }
@@ -274,26 +230,16 @@
   function activeNav() {
     const links = document.querySelectorAll('.nav-links a[href^="#"]');
     const sections = document.querySelectorAll("section[id]");
-    if (
-      !links.length ||
-      !sections.length ||
-      !("IntersectionObserver" in window)
-    )
-      return;
+    if (!links.length || !sections.length || !("IntersectionObserver" in window)) return;
 
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          links.forEach((l) => l.classList.remove("is-active"));
-          const match = document.querySelector(
-            `.nav-links a[href="#${entry.target.id}"]`,
-          );
-          if (match) match.classList.add("is-active");
-        });
-      },
-      { threshold: 0.4 },
-    );
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((l) => l.classList.remove("is-active"));
+        const match = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (match) match.classList.add("is-active");
+      });
+    }, { threshold: 0.4 });
 
     sections.forEach((s) => obs.observe(s));
   }
@@ -303,10 +249,7 @@
     if (!el) return;
     const text = "deploy --target=real_world --mode=problem_solving";
 
-    if (reducedMotion) {
-      el.textContent = text;
-      return;
-    }
+    if (reducedMotion) { el.textContent = text; return; }
 
     setTimeout(() => {
       let i = 0;
@@ -320,17 +263,12 @@
   }
 
   function parallax() {
-    const isFine = window.matchMedia(
-      "(hover: hover) and (pointer: fine)",
-    ).matches;
+    const isFine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const frame = document.getElementById("portraitFrame");
     const heroSection = document.querySelector(".hero");
     if (!isFine || reducedMotion || !frame || !heroSection) return;
 
-    let targetX = 0,
-      targetY = 0,
-      curX = 0,
-      curY = 0;
+    let targetX = 0, targetY = 0, curX = 0, curY = 0;
 
     heroSection.addEventListener("mousemove", (e) => {
       const rect = heroSection.getBoundingClientRect();
@@ -361,15 +299,11 @@
 
   function projectImages() {
     // Project screenshot na thakle (404) image lukiye gradient preview dekhabe
-    document
-      .querySelectorAll(".project__preview img, .photo-card img")
-      .forEach((img) => {
-        const hide = () => {
-          img.style.display = "none";
-        };
-        img.addEventListener("error", hide);
-        if (img.complete && img.naturalWidth === 0) hide();
-      });
+    document.querySelectorAll(".project__preview img, .photo-card img").forEach((img) => {
+      const hide = () => { img.style.display = "none"; };
+      img.addEventListener("error", hide);
+      if (img.complete && img.naturalWidth === 0) hide();
+    });
   }
 
   function skills() {
@@ -402,27 +336,12 @@
     ];
 
     // Real tech logos (Devicon CDN). Icon na pele code text fallback dekhabe.
-    const DEVICON = (slug) =>
-      `https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/${slug}/${slug}-original.svg`;
+    const DEVICON = (slug) => `https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/${slug}/${slug}-original.svg`;
     const ICONS = {
-      Python: "python",
-      Java: "java",
-      C: "c",
-      "C++": "cplusplus",
-      JavaScript: "javascript",
-      TypeScript: "typescript",
-      HTML5: "html5",
-      CSS3: "css3",
-      React: "react",
-      "Tailwind CSS": "tailwindcss",
-      "Framer Motion": "framermotion",
-      "Node.js": "nodejs",
-      "Express.js": "express",
-      MySQL: "mysql",
-      PostgreSQL: "postgresql",
-      Git: "git",
-      GitHub: "github",
-      Vite: "vitejs",
+      "Python": "python", "Java": "java", "C": "c", "C++": "cplusplus", "JavaScript": "javascript", "TypeScript": "typescript",
+      "HTML5": "html5", "CSS3": "css3", "React": "react", "Tailwind CSS": "tailwindcss", "Framer Motion": "framermotion",
+      "Node.js": "nodejs", "Express.js": "express", "MySQL": "mysql", "PostgreSQL": "postgresql",
+      "Git": "git", "GitHub": "github", "Vite": "vitejs",
     };
     const INVERT = ["Express.js", "GitHub"]; // black logos: dark theme e invert hobe
 
@@ -442,8 +361,7 @@
     grid.querySelectorAll(".skill-card__icon").forEach((img) => {
       img.addEventListener("error", () => {
         const s = document.createElement("span");
-        s.className = "skill-card__code";
-        s.textContent = img.dataset.code || "";
+        s.className = "skill-card__code"; s.textContent = img.dataset.code || "";
         img.replaceWith(s);
       });
     });
@@ -457,8 +375,7 @@
         btn.classList.add("is-active");
         const filter = btn.getAttribute("data-filter");
         cards.forEach((card) => {
-          const show =
-            filter === "all" || card.getAttribute("data-category") === filter;
+          const show = filter === "all" || card.getAttribute("data-category") === filter;
           if (show) card.removeAttribute("hidden");
           else card.setAttribute("hidden", "");
         });
@@ -469,14 +386,8 @@
   function backToTop() {
     const btn = document.getElementById("backToTop");
     if (!btn) return;
-    window.addEventListener(
-      "scroll",
-      () => btn.classList.toggle("is-visible", window.scrollY > 500),
-      { passive: true },
-    );
-    btn.addEventListener("click", () =>
-      window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" }),
-    );
+    window.addEventListener("scroll", () => btn.classList.toggle("is-visible", window.scrollY > 500), { passive: true });
+    btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" }));
   }
 
   function copyEmail() {
@@ -487,9 +398,7 @@
     function say(msg) {
       if (!feedback) return;
       feedback.textContent = msg;
-      setTimeout(() => {
-        feedback.textContent = "";
-      }, 3000);
+      setTimeout(() => { feedback.textContent = ""; }, 3000);
     }
 
     btn.addEventListener("click", async () => {
@@ -532,28 +441,16 @@
       if (errEl) errEl.textContent = msg || "";
     }
     function validateName() {
-      if (nameInput.value.trim().length < 2) {
-        setError(nameInput, "Name must be at least 2 characters.");
-        return false;
-      }
-      setError(nameInput, "");
-      return true;
+      if (nameInput.value.trim().length < 2) { setError(nameInput, "Name must be at least 2 characters."); return false; }
+      setError(nameInput, ""); return true;
     }
     function validateEmail() {
-      if (!emailRegex.test(emailInput.value.trim())) {
-        setError(emailInput, "Enter a valid email address.");
-        return false;
-      }
-      setError(emailInput, "");
-      return true;
+      if (!emailRegex.test(emailInput.value.trim())) { setError(emailInput, "Enter a valid email address."); return false; }
+      setError(emailInput, ""); return true;
     }
     function validateMessage() {
-      if (messageInput.value.trim().length < 10) {
-        setError(messageInput, "Message must be at least 10 characters.");
-        return false;
-      }
-      setError(messageInput, "");
-      return true;
+      if (messageInput.value.trim().length < 10) { setError(messageInput, "Message must be at least 10 characters."); return false; }
+      setError(messageInput, ""); return true;
     }
 
     nameInput && nameInput.addEventListener("blur", validateName);
@@ -562,9 +459,7 @@
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const ok = [validateName(), validateEmail(), validateMessage()].every(
-        Boolean,
-      );
+      const ok = [validateName(), validateEmail(), validateMessage()].every(Boolean);
       if (ok) {
         if (statusEl) {
           statusEl.textContent =
@@ -583,17 +478,11 @@
     let formatter = null;
     try {
       formatter = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Asia/Dhaka",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
+        timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
       });
     } catch (err) {}
     function tick() {
-      el.textContent = formatter
-        ? `${formatter.format(new Date())} GMT+6`
-        : new Date().toLocaleTimeString();
+      el.textContent = formatter ? `${formatter.format(new Date())} GMT+6` : new Date().toLocaleTimeString();
     }
     tick();
     setInterval(tick, 1000);
@@ -606,44 +495,19 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     const inits = [
-      themeSystem,
-      loader,
-      cursor,
-      headerScroll,
-      hudRail,
-      mobileNav,
-      smoothAnchors,
-      reveal,
-      activeNav,
-      heroTyping,
-      parallax,
-      portraitFallback,
-      projectImages,
-      skills,
-      backToTop,
-      copyEmail,
-      liveClock,
-      footerYear,
+      themeSystem, loader, cursor, headerScroll, hudRail, mobileNav, smoothAnchors,
+      reveal, activeNav, heroTyping, parallax, portraitFallback, projectImages,
+      skills, backToTop, copyEmail, liveClock, footerYear,
     ];
     inits.forEach((fn) => {
-      try {
-        fn();
-      } catch (err) {
-        console.error("[KHALED.EXE] module failed:", fn.name, err);
-      }
+      try { fn(); } catch (err) { console.error("[KHALED.EXE] module failed:", fn.name, err); }
     });
   });
 
   function forceHideLoaderAbsolute() {
-    if (typeof window.__forceHideLoader === "function") {
-      window.__forceHideLoader();
-      return;
-    }
+    if (typeof window.__forceHideLoader === "function") { window.__forceHideLoader(); return; }
     const loaderEl = document.getElementById("loader");
-    if (loaderEl) {
-      loaderEl.classList.add("is-hidden");
-      loaderEl.style.display = "none";
-    }
+    if (loaderEl) { loaderEl.classList.add("is-hidden"); loaderEl.style.display = "none"; }
     document.body.classList.remove("is-loading");
   }
   window.addEventListener("error", forceHideLoaderAbsolute);
@@ -655,11 +519,7 @@
   "use strict";
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const esc = (s) =>
-    String(s).replace(
-      /[&<>"]/g,
-      (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
-    );
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   /* ====== EDIT HERE ====== */
   const EMAIL = "kh.milu338@gmail.com";
@@ -668,82 +528,45 @@
   // Real details thakle "highlights" e likho (khali thakle section dekhabe na)
   const CASES = {
     oab: {
-      name: "OAB Express",
-      status: "LIVE",
-      summary:
-        "A courier and logistics platform built for real-world shipment and delivery operations.",
-      problem:
-        "Shipment and delivery work has many moving parts — bookings, tracking and coordination. This product brings them into one web platform.",
+      name: "OAB Express", status: "LIVE",
+      summary: "A courier and logistics platform built for real-world shipment and delivery operations.",
+      problem: "Shipment and delivery work has many moving parts — bookings, tracking and coordination. This product brings them into one web platform.",
       arch: "[ Browser ]\n   │  React + TypeScript + Tailwind CSS\n   ▼\n[ REST API ]  Node.js + Express.js",
       stack: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express.js"],
-      links: [
-        { label: "Visit Live Site →", href: "https://www.oab-express.com/" },
-      ],
+      links: [{ label: "Visit Live Site →", href: "https://www.oab-express.com/" }],
       highlights: [],
     },
     lifesync: {
-      name: "LifeSync",
-      status: "REPOSITORY",
-      summary:
-        "A personal productivity and habit-tracking application for organizing daily routines and goals.",
-      problem:
-        "Routines and goals are easy to lose track of when they live in scattered notes. LifeSync keeps them in one place.",
+      name: "LifeSync", status: "REPOSITORY",
+      summary: "A personal productivity and habit-tracking application for organizing daily routines and goals.",
+      problem: "Routines and goals are easy to lose track of when they live in scattered notes. LifeSync keeps them in one place.",
       arch: "[ Browser ]\n   │  React\n   ▼\n[ REST API ]  Node.js + Express.js\n   │\n   ▼\n[ MySQL ]",
       stack: ["React", "Node.js", "Express.js", "MySQL"],
-      links: [
-        {
-          label: "View on GitHub →",
-          href: "https://github.com/khaledhasanmilu/LifeSync",
-        },
-      ],
+      links: [{ label: "View on GitHub →", href: "https://github.com/khaledhasanmilu/LifeSync" }],
       highlights: [],
     },
     unihub: {
-      name: "UniHub",
-      status: "REPOSITORY",
-      summary:
-        "A university resource and community hub built to centralize student information and tools.",
-      problem:
-        "Student information is spread across many places. UniHub centralizes resources and tools for the community.",
+      name: "UniHub", status: "REPOSITORY",
+      summary: "A university resource and community hub built to centralize student information and tools.",
+      problem: "Student information is spread across many places. UniHub centralizes resources and tools for the community.",
       arch: "[ Browser ]\n   │  HTML + JavaScript + Tailwind CSS\n   ▼\n[ REST API ]  Express.js\n   │\n   ▼\n[ MySQL ]",
       stack: ["HTML", "JavaScript", "Tailwind CSS", "Express.js", "MySQL"],
-      links: [
-        {
-          label: "View on GitHub →",
-          href: "https://github.com/khaledhasanmilu/UniHub",
-        },
-      ],
+      links: [{ label: "View on GitHub →", href: "https://github.com/khaledhasanmilu/UniHub" }],
       highlights: [],
     },
     phishguard: {
-      name: "PhishGuard",
-      status: "PROJECT",
-      summary:
-        "Check if that SMS is safe. Paste it into PhishGuard and get a clear answer in seconds — safe or scam.",
-      problem:
-        "Got a strange SMS? A prize message, a bank warning, an unknown link? It is hard to tell what is real. PhishGuard gives a quick, clear verdict.",
+      name: "PhishGuard", status: "PROJECT",
+      summary: "Check if that SMS is safe. Paste it into PhishGuard and get a clear answer in seconds — safe or scam.",
+      problem: "Got a strange SMS? A prize message, a bank warning, an unknown link? It is hard to tell what is real. PhishGuard gives a quick, clear verdict.",
       arch: "",
       stack: [],
-      links: [
-        {
-          label: "View on GitHub →",
-          href: "https://github.com/khaledhasanmilu/SMS-Phising-Detection ",
-        },
-      ],
-      highlights: [
-        "No signup",
-        "No fees",
-        "Nothing is stored",
-        "Works on your phone",
-      ],
+      links: [{ label: "View on GitHub →", href: "https://github.com/khaledhasanmilu/SMS-Phising-Detection" }],
+      highlights: ["No signup", "No fees", "Nothing is stored", "Works on your phone"],
     },
     spak: {
-      name: "SPAK — Agriculture Rover",
-      status: "DEMO",
-      summary:
-        "Our team’s agricultural rover — a project that taught us the power of teamwork, innovation, and perseverance.",
-      problem:
-        "Farming involves repetitive field work — preparing soil, watering, cutting grass, testing soil and planting seeds. SPAK brings these tasks together in a single rover.",
+      name: "SPAK — Agriculture Rover", status: "DEMO",
+      summary: "Our team’s agricultural rover — a project that taught us the power of teamwork, innovation, and perseverance.",
+      problem: "Farming involves repetitive field work — preparing soil, watering, cutting grass, testing soil and planting seeds. SPAK brings these tasks together in a single rover.",
       arch: "",
       stack: [],
       links: [{ label: "Watch Demo →", href: "https://youtu.be/jeDA5cLB57M" }],
@@ -764,25 +587,19 @@
     t.textContent = "> " + msg;
     document.body.appendChild(t);
     requestAnimationFrame(() => t.classList.add("is-on"));
-    setTimeout(() => {
-      t.classList.remove("is-on");
-      setTimeout(() => t.remove(), 400);
-    }, 3000);
+    setTimeout(() => { t.classList.remove("is-on"); setTimeout(() => t.remove(), 400); }, 3000);
   }
 
   /* ---------- Case study modal ---------- */
   function caseStudies() {
     const m = document.createElement("div");
-    m.className = "modal";
-    m.hidden = true;
-    m.innerHTML =
-      '<div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="caseTitle"><button class="modal__close" aria-label="Close">×</button><div id="caseBody"></div></div>';
+    m.className = "modal"; m.hidden = true;
+    m.innerHTML = '<div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="caseTitle"><button class="modal__close" aria-label="Close">×</button><div id="caseBody"></div></div>';
     document.body.appendChild(m);
     let last = null;
 
     function open(key) {
-      const c = CASES[key];
-      if (!c) return;
+      const c = CASES[key]; if (!c) return;
       last = document.activeElement;
       $("#caseBody").innerHTML =
         `<div class="eyebrow">CASE STUDY // ${esc(c.status)}</div>
@@ -799,434 +616,289 @@
     }
     function close() {
       if (m.hidden) return;
-      m.hidden = true;
-      document.body.style.overflow = "";
+      m.hidden = true; document.body.style.overflow = "";
       if (last && last.focus) last.focus();
     }
-    m.addEventListener("click", (e) => {
-      if (e.target === m || e.target.closest(".modal__close")) close();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") close();
-    });
-    $$(".case-btn").forEach((b) =>
-      b.addEventListener("click", () => open(b.dataset.case)),
-    );
+    m.addEventListener("click", (e) => { if (e.target === m || e.target.closest(".modal__close")) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    $$(".case-btn").forEach((b) => b.addEventListener("click", () => open(b.dataset.case)));
     window.__openCase = open;
   }
 
   /* ---------- Terminal ---------- */
   function terminal() {
     const el = document.createElement("div");
-    el.className = "term-overlay";
-    el.hidden = true;
+    el.className = "term-overlay"; el.hidden = true;
     el.innerHTML = `<div class="term-overlay__box" role="dialog" aria-modal="true" aria-label="Terminal">
       <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>khaled@dhaka — zsh</span><button class="modal__close" data-x aria-label="Close terminal">×</button></div>
       <div class="term-overlay__out" id="tOut" aria-live="polite"></div>
+      <div class="term-overlay__chips" id="tChips" aria-label="Quick commands"></div>
       <label class="term-overlay__in"><span class="prompt">❯</span><input id="tIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command" /></label></div>`;
     document.body.appendChild(el);
 
     const fab = document.createElement("button");
-    fab.id = "termFab";
-    fab.className = "mono";
-    fab.textContent = ">_";
+    fab.id = "termFab"; fab.className = "mono";
+    fab.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="3"/><polyline points="7 9.5 10.5 12 7 14.5"/><line x1="12.5" y1="15" x2="17" y2="15"/></svg><span>Terminal</span>';
     fab.setAttribute("aria-label", "Open terminal (Ctrl+K)");
     document.body.appendChild(fab);
 
-    const out = $("#tOut"),
-      input = $("#tIn");
-    const hist = [];
-    let hi = 0,
-      booted = false;
+    const out = $("#tOut"), input = $("#tIn"), chips = $("#tChips");
+    const coarse = matchMedia("(pointer: coarse)");
+    const vv = window.visualViewport;
+    const SECTIONS = { home: "#home", about: "#about", work: "#work", projects: "#work", skills: "#skills", stack: "#skills", experience: "#experience", history: "#experience", education: "#education", github: "#github", contact: "#contact" };
+    chips.innerHTML = ["help", "about", "projects", "skills", "github", "contact", "theme matrix", "clear"]
+      .map((c) => `<button type="button" class="chip mono" data-cmd="${c}">${c}</button>`).join("");
+    const hist = []; let hi = 0, booted = false;
 
     const print = (html, cls = "") => {
       const d = document.createElement("div");
-      d.className = "t-line " + cls;
-      d.innerHTML = html;
-      out.appendChild(d);
-      out.scrollTop = out.scrollHeight;
+      d.className = "t-line " + cls; d.innerHTML = html;
+      out.appendChild(d); out.scrollTop = out.scrollHeight;
     };
-    const theme = () =>
-      document.documentElement.getAttribute("data-theme") || "signal";
+    const theme = () => document.documentElement.getAttribute("data-theme") || "signal";
 
     const cmds = {
-      help: () =>
+      help: () => {
+        const row = (cmd, desc, run) => `<div class="hrow"><a href="#" class="t-key" data-cmd="${esc(run || cmd)}">${esc(cmd)}</a><span class="t-dim">${desc}</span></div>`;
+        const g = (t) => `<div class="hhead t-warn">${t}</div>`;
         print(
-          `<span class="t-key">help</span> commands:\n` +
-            [
-              ["about", "who I am"],
-              ["neofetch", "quick system info"],
-              ["ls", "list projects"],
-              ["open &lt;name&gt;", "case study: oab | lifesync | unihub"],
-              ["skills", "tech stack"],
-              ["git log", "experience as commits"],
-              ["contact", "email / links"],
-              ["theme &lt;name&gt;", "signal | matrix | amber | lumen"],
-              ["resume", "view CV"],
-              ["clear", "clear screen"],
-              ["exit", "close terminal"],
-            ]
-              .map(
-                (r) =>
-                  `  <span class="t-key">${r[0].padEnd(18).replace(/ /g, "&nbsp;")}</span><span class="t-dim">${r[1]}</span>`,
-              )
-              .join("\n"),
-          "pre",
-        ),
-      about: () =>
-        print(
-          "Khaled Hasan Milu — software engineer from Dhaka. CSE (Data Science) at UIU, CGPA 3.83 / 4.00. I build full-stack products: clean, scalable, useful.",
-        ),
+          `<div class="t-key">KHALED.EXE terminal — tap a command, or type it.</div>` +
+          g("ABOUT") + [row("about", "who I am"), row("whoami", "one-liner"), row("neofetch", "quick system info"), row("education", "degrees & CGPA"), row("achievements", "awards & scholarships"), row("git log", "experience as commits"), row("skills [category]", "tech stack", "skills")].join("\n") +
+          g("WORK") + [row("projects [category]", "software · hardware · sqa · learning …", "projects"), row("ls", "case studies"), row("open <name>", "open a case study", "ls"), row("github", "repos · followers · contributions")].join("\n") +
+          g("NAVIGATE") + [row("goto <section>", "about · work · skills · github · contact", "goto work"), row("resume", "view CV in a new tab"), row("contact", "email & social links"), row("email", "open your mail app")].join("\n") +
+          g("SYSTEM") + [row("theme <name>", "signal · matrix · amber · lumen", "themes"), row("fx [on|off]", "background effects", "fx"), row("time", "current time in Dhaka"), row("history", "commands you ran"), row("clear", "clear the screen"), row("exit", "close terminal")].join("\n") +
+          g("FUN") + [row("ping", "ping khaled.exe"), row("coffee", "brew something"), row("sudo hire khaled", "you know you want to")].join("\n") +
+          `<div class="hhead t-dim">tips: Tab = autocomplete · ↑ ↓ = history · Esc = close · Ctrl+K = toggle</div>`, "");
+      },
+      education: () => print($$(".edu-card").map((c) => `<span class="t-key">${esc($(".edu-card__date", c).textContent)}</span> ${esc($("h3", c).textContent)}\n  <span class="t-dim">${esc($("p", c).textContent)}</span>`).join("\n"), "pre"),
+      achievements: () => print($$(".achievements li").map((li) => { const t = $("strong", li).textContent; return `<span class="t-warn">★</span> <span class="t-key">${esc(t)}</span> <span class="t-dim">${esc(li.textContent.replace(t, "").trim())}</span>`; }).join("\n"), "pre"),
+      experience: () => cmds.git(["log"]),
+      projects: (a) => {
+        const P = window.__PJ || {}, k = (a[0] || "").toLowerCase();
+        if (!k) return print(Object.keys(P).map((c) => `<a href="#" class="t-key" data-cmd="projects ${c}">${c}/</a> <span class="t-dim">${P[c].length} project${P[c].length === 1 ? "" : "s"}</span>`).join("\n") + `\n<span class="t-dim">tip: projects &lt;category&gt;</span>`, "pre");
+        if (!P[k]) return print(`unknown category: ${esc(k)} — try: ${Object.keys(P).join(" | ")}`, "t-err");
+        if (!P[k].length) return print("(empty) — coming soon", "t-dim");
+        print(P[k].map((p) => `<span class="t-key">•</span> ${esc(p.name)} <span class="t-dim">[${esc(p.status)}]</span>${p.case ? ` <a href="#" data-cmd="open ${esc(p.case)}">open</a>` : ""}`).join("\n"), "pre");
+      },
+      github: () => {
+        const v = (k) => ($(`[data-gh="${k}"]`) || {}).textContent || "—";
+        const loaded = v("repos") !== "—";
+        print(`<span class="t-key">repos</span>          ${v("repos")}\n<span class="t-key">followers</span>      ${v("followers")}\n<span class="t-key">contributions</span>  ${v("total")} <span class="t-dim">(last year)</span>\n<a href="https://github.com/khaledhasanmilu/" target="_blank" rel="noopener">github.com/khaledhasanmilu</a>` + (loaded ? "" : `\n<span class="t-dim">stats load when you scroll to the GitHub section — try: </span><a href="#" data-cmd="goto github">goto github</a>`), "pre");
+      },
+      goto: (a) => {
+        const key = (a[0] || "").toLowerCase(), t = SECTIONS[key] && $(SECTIONS[key]);
+        if (!t) return print(`usage: goto &lt;${Object.keys(SECTIONS).join(" | ")}&gt;`, "t-err");
+        close();
+        const hd = $("header"), top = t.getBoundingClientRect().top + window.scrollY - (hd ? hd.offsetHeight : 0) + 1;
+        window.scrollTo({ top, behavior: "smooth" });
+      },
+      themes: () => print(["signal", "matrix", "amber", "lumen"].map((n) => `<a href="#" class="t-key" data-cmd="theme ${n}">${n}</a>`).join("  ·  ") + `\n<span class="t-dim">current: ${esc(theme())}</span>`, "pre"),
+      fx: (a) => {
+        const root = document.documentElement, isOn = !root.classList.contains("fx-off"), w = (a[0] || "").toLowerCase();
+        const on = w === "on" ? true : w === "off" ? false : !isOn, b = $("[data-fx-toggle]");
+        if (on !== isOn && b) b.click();
+        print(`background fx :: ${on ? "on" : "off"}`, "t-ok");
+      },
+      time: () => { try { print(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Dhaka", dateStyle: "full", timeStyle: "medium" }).format(new Date()) + " <span class=\"t-dim\">(Dhaka, GMT+6)</span>"); } catch (e) { print(new Date().toString()); } },
+      history: () => print(hist.length ? hist.map((c, i) => `${String(i + 1).padStart(3, " ")}  ${esc(c)}`).join("\n") : "(empty)", "pre"),
+      email: () => { print("opening your mail app …", "t-ok"); location.href = `mailto:${EMAIL}`; },
+      cv: () => cmds.resume(),
+      links: () => cmds.contact(),
+      pwd: () => print("/home/khaled/portfolio"),
+      uname: () => print("KHALED.EXE v2.0 (vanilla HTML / CSS / JS)"),
+      ping: () => print("PING khaled.exe — 64 bytes: time=0.42 ms — status: <span class=\"t-ok\">ACTIVE</span>"),
+      coffee: () => print("☕ brewing… 100% — ready. (compiling ideas into code)", "t-ok"),
+      about: () => print("Khaled Hasan Milu — software engineer from Dhaka. CSE (Data Science) at UIU, CGPA 3.83 / 4.00. I build full-stack products: clean, scalable, useful."),
       whoami: () => print("khaled — software engineer"),
-      neofetch: () =>
-        print(
-          `<span class="t-key">khaled</span>@<span class="t-key">dhaka</span>\n---------------\n<span class="t-key">Role</span>     Software Engineer\n<span class="t-key">Edu</span>      BSc CSE (Data Science), UIU\n<span class="t-key">CGPA</span>     3.83 / 4.00\n<span class="t-key">Stack</span>    React · Node.js · TypeScript · MySQL\n<span class="t-key">Shell</span>    KHALED.EXE v2.0\n<span class="t-key">Theme</span>    ${esc(theme())}\n<span class="t-key">Uptime</span>   ${Math.floor((Date.now() - t0) / 1000)}s`,
-          "pre",
-        ),
-      ls: () =>
-        print(
-          Object.keys(CASES)
-            .map(
-              (k) =>
-                `<span class="t-key">${k.padEnd(10).replace(/ /g, "&nbsp;")}</span><span class="t-dim">${esc(CASES[k].name)} — ${esc(CASES[k].status.toLowerCase())}</span>`,
-            )
-            .join("\n"),
-          "pre",
-        ),
-      skills: () =>
-        print(
-          $$(".skill-card__name")
-            .map((s) => esc(s.textContent))
-            .join(" · "),
-        ),
-      contact: () =>
-        print(
-          `<span class="t-key">email</span>    <a href="mailto:${EMAIL}">${EMAIL}</a>\n<span class="t-key">linkedin</span> <a href="https://www.linkedin.com/in/khaledhasanmilu/" target="_blank" rel="noopener">linkedin.com/in/khaledhasanmilu</a>\n<span class="t-key">github</span>   <a href="https://github.com/khaledhasanmilu/" target="_blank" rel="noopener">github.com/khaledhasanmilu</a>`,
-          "pre",
-        ),
-      resume: () => {
-        print("opening resume.pdf in a new tab …", "t-ok");
-        window.open("resume.pdf", "_blank", "noopener");
-      },
-      clear: () => {
-        out.innerHTML = "";
-      },
+      neofetch: () => print(`<span class="t-key">khaled</span>@<span class="t-key">dhaka</span>\n---------------\n<span class="t-key">Role</span>     Software Engineer\n<span class="t-key">Edu</span>      BSc CSE (Data Science), UIU\n<span class="t-key">CGPA</span>     3.83 / 4.00\n<span class="t-key">Stack</span>    React · Node.js · TypeScript · MySQL\n<span class="t-key">Shell</span>    KHALED.EXE v2.0\n<span class="t-key">Theme</span>    ${esc(theme())}\n<span class="t-key">Uptime</span>   ${Math.floor((Date.now() - t0) / 1000)}s`, "pre"),
+      ls: () => print(Object.keys(CASES).map((k) => `<span class="t-key">${k.padEnd(10).replace(/ /g, "&nbsp;")}</span><span class="t-dim">${esc(CASES[k].name)} — ${esc(CASES[k].status.toLowerCase())}</span>`).join("\n"), "pre"),
+      skills: () => print($$(".skill-card__name").map((s) => esc(s.textContent)).join(" · ")),
+      contact: () => print(`<span class="t-key">email</span>    <a href="mailto:${EMAIL}">${EMAIL}</a>\n<span class="t-key">linkedin</span> <a href="https://www.linkedin.com/in/khaledhasanmilu/" target="_blank" rel="noopener">linkedin.com/in/khaledhasanmilu</a>\n<span class="t-key">github</span>   <a href="https://github.com/khaledhasanmilu/" target="_blank" rel="noopener">github.com/khaledhasanmilu</a>`, "pre"),
+      resume: () => { print("opening resume.pdf in a new tab …", "t-ok"); window.open("resume.pdf", "_blank", "noopener"); },
+      clear: () => { out.innerHTML = ""; },
       exit: () => close(),
       date: () => print(new Date().toString()),
       open: (a) => {
         const k = (a[0] || "").toLowerCase();
-        if (!CASES[k])
-          return print(
-            `usage: open &lt;${Object.keys(CASES).join(" | ")}&gt;`,
-            "t-err",
-          );
-        close();
-        window.__openCase(k);
+        if (!CASES[k]) return print(`usage: open &lt;${Object.keys(CASES).join(" | ")}&gt;`, "t-err");
+        close(); window.__openCase(k);
       },
       theme: (a) => {
-        const n = (a[0] || "").toLowerCase(),
-          b = $(`[data-theme-btn="${n}"]`);
-        if (!b)
-          return print(
-            "usage: theme &lt;signal | matrix | amber | lumen&gt;",
-            "t-err",
-          );
-        b.click();
-        print(`theme set to ${esc(n)}`, "t-ok");
+        const n = (a[0] || "").toLowerCase(), b = $(`[data-theme-btn="${n}"]`);
+        if (!b) return print("usage: theme &lt;signal | matrix | amber | lumen&gt;", "t-err");
+        b.click(); print(`theme set to ${esc(n)}`, "t-ok");
       },
       echo: (a) => print(esc(a.join(" "))),
       git: (a) => {
         if (a[0] !== "log") return print("usage: git log", "t-err");
         const hashes = ["a3f9c21", "7be04d8", "1c5e8fa"];
-        print(
-          $$(".timeline__item")
-            .map(
-              (it, i) =>
-                `<span class="t-warn">${hashes[i % 3]}</span> ${esc($("h3", it).textContent)} <span class="t-dim">— ${esc($(".org", it).textContent)} [${esc($(".timeline__date", it).textContent)}]</span>`,
-            )
-            .join("\n"),
-          "pre",
-        );
+        print($$(".timeline__item").map((it, i) =>
+          `<span class="t-warn">${hashes[i % 3]}</span> ${esc($("h3", it).textContent)} <span class="t-dim">— ${esc($(".org", it).textContent)} [${esc($(".timeline__date", it).textContent)}]</span>`).join("\n"), "pre");
       },
       sudo: (a) => {
-        if (a.join(" ").toLowerCase() !== "hire khaled")
-          return print(
-            "sudo: you can't do that… try: sudo hire khaled",
-            "t-err",
-          );
-        print(
-          "[sudo] password for recruiter: ********\nAccess granted. Drafting offer…",
-          "pre t-ok",
-        );
-        setTimeout(() => {
-          location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Let's work together")}`;
-        }, 900);
+        if (a.join(" ").toLowerCase() !== "hire khaled") return print("sudo: you can't do that… try: sudo hire khaled", "t-err");
+        print("[sudo] password for recruiter: ********\nAccess granted. Drafting offer…", "pre t-ok");
+        setTimeout(() => { location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Let's work together")}`; }, 900);
       },
     };
 
     function run(raw) {
-      const line = raw.trim();
-      if (!line) return;
-      hist.push(line);
-      hi = hist.length;
-      const e = document.createElement("div");
-      e.className = "t-line";
-      e.innerHTML = '<span class="prompt">❯</span> ';
-      e.append(line);
-      out.appendChild(e);
-      const [c, ...args] = line.split(/\s+/);
-      const fn = cmds[c.toLowerCase()];
-      if (fn) fn(args);
-      else
-        print(
-          `command not found: ${esc(c)} — type <span class="t-key">help</span>`,
-          "t-err",
-        );
+      const line = raw.trim(); if (!line) return;
+      hist.push(line); hi = hist.length;
+      const e = document.createElement("div"); e.className = "t-line"; e.innerHTML = '<span class="prompt">❯</span> '; e.append(line); out.appendChild(e);
+      const [c, ...args] = line.split(/\s+/); const fn = cmds[c.toLowerCase()];
+      if (fn) fn(args); else print(`command not found: ${esc(c)} — type <span class="t-key">help</span>`, "t-err");
       out.scrollTop = out.scrollHeight;
     }
 
     function openT() {
-      el.hidden = false;
-      document.body.style.overflow = "hidden";
-      if (!booted) {
-        booted = true;
-        print(
-          'Welcome to <span class="t-key">KHALED.EXE</span> terminal. Type <span class="t-key">help</span> to start.',
-          "t-dim",
-        );
-      }
-      input.focus();
+      el.hidden = false; document.body.style.overflow = "hidden";
+      if (!booted) { booted = true; print('Welcome to <span class="t-key">KHALED.EXE</span> terminal. Type <span class="t-key">help</span> to start.', "t-dim"); }
+      fit();
+      if (!coarse.matches) input.focus();   // phone e auto-keyboard khulbe na
     }
-    function close() {
-      el.hidden = true;
-      document.body.style.overflow = "";
+    function close() { el.hidden = true; document.body.style.overflow = ""; }
+    function fit() {
+      if (el.hidden) return;
+      el.style.setProperty("--tvh", (vv ? vv.height : window.innerHeight) + "px");
+      el.style.setProperty("--tvt", (vv ? vv.offsetTop : 0) + "px");
+      out.scrollTop = out.scrollHeight;
     }
+    if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); }
+    window.addEventListener("orientationchange", () => setTimeout(fit, 250));
+    input.addEventListener("focus", () => setTimeout(fit, 250));
     window.__toggleTerm = () => (el.hidden ? openT() : close());
 
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        run(input.value);
-        input.value = "";
-      } else if (e.key === "ArrowUp") {
+      if (e.key === "Enter") { run(input.value); input.value = ""; }
+      else if (e.key === "ArrowUp") { e.preventDefault(); if (hi > 0) input.value = hist[--hi]; }
+      else if (e.key === "ArrowDown") { e.preventDefault(); input.value = hi < hist.length - 1 ? hist[++hi] : ((hi = hist.length), ""); }
+      else if (e.key === "Tab") {
         e.preventDefault();
-        if (hi > 0) input.value = hist[--hi];
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        input.value =
-          hi < hist.length - 1 ? hist[++hi] : ((hi = hist.length), "");
-      } else if (e.key === "Tab") {
-        e.preventDefault();
-        const v = input.value.trim().toLowerCase(),
-          m = Object.keys(cmds).filter((k) => v && k.startsWith(v));
+        const v = input.value.trim().toLowerCase(), m = Object.keys(cmds).filter((k) => v && k.startsWith(v));
         if (m.length === 1) input.value = m[0] + " ";
       }
     });
     el.addEventListener("click", (e) => {
+      const c = e.target.closest("[data-cmd]");
+      if (c) { e.preventDefault(); run(c.dataset.cmd); return; }
       if (e.target === el || e.target.closest("[data-x]")) close();
-      else input.focus();
+      else if (!coarse.matches) input.focus();
     });
     fab.addEventListener("click", openT);
     $$("[data-term-open]").forEach((b) => b.addEventListener("click", openT));
     document.addEventListener("keydown", (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        window.__toggleTerm();
-      } else if (e.key === "Escape" && !el.hidden) close();
-      else if (
-        e.key === "/" &&
-        el.hidden &&
-        !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || "")
-      ) {
-        e.preventDefault();
-        openT();
-      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); window.__toggleTerm(); }
+      else if (e.key === "Escape" && !el.hidden) close();
+      else if (e.key === "/" && el.hidden && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || "")) { e.preventDefault(); openT(); }
     });
   }
 
   /* ---------- Contact form (Web3Forms, mailto fallback) ---------- */
   function contactForm() {
-    const f = $("#contactForm");
-    if (!f) return;
-    const n = $("#nameInput"),
-      e = $("#emailInput"),
-      m = $("#messageInput"),
-      st = $("#formStatus"),
-      btn = $("button[type=submit]", f);
+    const f = $("#contactForm"); if (!f) return;
+    const n = $("#nameInput"), e = $("#emailInput"), m = $("#messageInput"), st = $("#formStatus"), btn = $("button[type=submit]", f);
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const rules = [
-      [n, (v) => v.length >= 2, "Name must be at least 2 characters."],
-      [e, (v) => re.test(v), "Enter a valid email address."],
-      [m, (v) => v.length >= 10, "Message must be at least 10 characters."],
-    ];
+    const rules = [[n, (v) => v.length >= 2, "Name must be at least 2 characters."], [e, (v) => re.test(v), "Enter a valid email address."], [m, (v) => v.length >= 10, "Message must be at least 10 characters."]];
     const check = ([i, ok, msg]) => {
-      const good = ok(i.value.trim()),
-        g = i.closest(".form-group");
-      g.classList.toggle("has-error", !good);
-      $(".form-error", g).textContent = good ? "" : msg;
-      return good;
+      const good = ok(i.value.trim()), g = i.closest(".form-group");
+      g.classList.toggle("has-error", !good); $(".form-error", g).textContent = good ? "" : msg; return good;
     };
     rules.forEach((r) => r[0].addEventListener("blur", () => check(r)));
 
     f.addEventListener("submit", async (ev) => {
       ev.preventDefault();
-      if (!rules.map(check).every(Boolean)) {
-        st.textContent = "> please fix the highlighted fields above.";
-        return;
-      }
+      if (!rules.map(check).every(Boolean)) { st.textContent = "> please fix the highlighted fields above."; return; }
       if ($("#botcheck", f) && $("#botcheck", f).checked) return;
-      const d = {
-        name: n.value.trim(),
-        email: e.value.trim(),
-        message: m.value.trim(),
-      };
+      const d = { name: n.value.trim(), email: e.value.trim(), message: m.value.trim() };
       if (WEB3FORMS_KEY === "YOUR_ACCESS_KEY") {
         st.textContent = "> opening your email app…";
         location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Portfolio message from " + d.name)}&body=${encodeURIComponent(d.message + "\n\n— " + d.name + " (" + d.email + ")")}`;
         return;
       }
-      btn.disabled = true;
-      st.textContent = "> sending…";
+      btn.disabled = true; st.textContent = "> sending…";
       try {
         const r = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_KEY,
-            subject: "Portfolio message from " + d.name,
-            ...d,
-          }),
+          method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: "Portfolio message from " + d.name, ...d }),
         });
         const j = await r.json();
         if (!j.success) throw new Error(j.message);
-        st.textContent = "> message sent \u2713 I'll reply soon.";
-        f.reset();
+        st.textContent = "> message sent \u2713 I'll reply soon."; f.reset();
       } catch (x) {
-        st.textContent =
-          "> failed to send. Please email " + EMAIL + " directly.";
-      } finally {
-        btn.disabled = false;
-      }
+        st.textContent = "> failed to send. Please email " + EMAIL + " directly.";
+      } finally { btn.disabled = false; }
     });
   }
 
   /* ---------- GitHub section (stats + contribution heatmap) ---------- */
   function github() {
     const USER = "khaledhasanmilu";
-    const heat = $("#ghHeat");
-    if (!heat) return;
+    const heat = $("#ghHeat"); if (!heat) return;
     const TTL = 6 * 3600 * 1000; // 6 ghonta cache (API rate limit er jonno)
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     async function cached(key, url) {
-      try {
-        const c = JSON.parse(localStorage.getItem(key) || "null");
-        if (c && Date.now() - c.t < TTL) return c.d;
-      } catch (e) {}
+      try { const c = JSON.parse(localStorage.getItem(key) || "null"); if (c && Date.now() - c.t < TTL) return c.d; } catch (e) {}
       const r = await fetch(url);
       if (!r.ok) throw new Error("HTTP " + r.status);
       const d = await r.json();
-      try {
-        localStorage.setItem(key, JSON.stringify({ t: Date.now(), d }));
-      } catch (e) {}
+      try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), d })); } catch (e) {}
       return d;
     }
     function countUp(el, n) {
       if (!el) return;
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        el.textContent = n.toLocaleString();
-        return;
-      }
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = n.toLocaleString(); return; }
       const t0 = performance.now();
       (function step(now) {
         const p = Math.min(1, (now - t0) / 1200);
-        el.textContent = Math.round(
-          n * (1 - Math.pow(1 - p, 3)),
-        ).toLocaleString();
+        el.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))).toLocaleString();
         if (p < 1) requestAnimationFrame(step);
       })(t0);
     }
 
     function go() {
       cached("gh-user", "https://api.github.com/users/" + USER)
-        .then((u) => {
-          countUp($('[data-gh="repos"]'), u.public_repos);
-          countUp($('[data-gh="followers"]'), u.followers);
-        })
+        .then((u) => { countUp($('[data-gh="repos"]'), u.public_repos); countUp($('[data-gh="followers"]'), u.followers); })
         .catch(() => {});
 
-      cached(
-        "gh-heat",
-        `https://github-contributions-api.jogruber.de/v4/${USER}?y=last`,
-      )
+      cached("gh-heat", `https://github-contributions-api.jogruber.de/v4/${USER}?y=last`)
         .then((d) => {
           const days = d.contributions;
           if (!days || !days.length) throw new Error("empty");
           const total = days.reduce((s, x) => s + x.count, 0);
           const pad = new Date(days[0].date + "T00:00:00").getDay();
           const weeks = Math.ceil((pad + days.length) / 7);
-          let cells = "",
-            labels = "",
-            lastM = -1,
-            lastW = -10;
-          for (let i = 0; i < pad; i++)
-            cells += '<i class="gh-cell gh-empty"></i>';
+          let cells = "", labels = "", lastM = -1, lastW = -10;
+          for (let i = 0; i < pad; i++) cells += '<i class="gh-cell gh-empty"></i>';
           days.forEach((x, i) => {
             cells += `<i class="gh-cell l${x.level}" title="${x.count} contributions on ${x.date}"></i>`;
             if ((pad + i) % 7 === 0) {
-              const w = Math.floor((pad + i) / 7),
-                m = +x.date.slice(5, 7) - 1;
+              const w = Math.floor((pad + i) / 7), m = +x.date.slice(5, 7) - 1;
               if (m !== lastM && w - lastW >= 3) {
                 labels += `<span style="grid-column:${w + 1} / span ${Math.min(3, weeks - w)}">${months[m]}</span>`;
-                lastM = m;
-                lastW = w;
+                lastM = m; lastW = w;
               }
             }
           });
           heat.innerHTML = `<div class="gh__months" style="--w:${weeks}">${labels}</div><div class="gh__grid" style="--w:${weeks}">${cells}</div>`;
-          $("#ghTotal").textContent =
-            `${total.toLocaleString()} contributions in the last year`;
+          $("#ghTotal").textContent = `${total.toLocaleString()} contributions in the last year`;
+          heat.parentElement.scrollLeft = heat.parentElement.scrollWidth;
           countUp($('[data-gh="total"]'), total);
         })
         .catch(() => {
-          heat.innerHTML =
-            '<p class="gh__err mono">Couldn’t load the contribution graph right now — see it live on GitHub below.</p>';
+          heat.innerHTML = '<p class="gh__err mono">Couldn’t load the contribution graph right now — see it live on GitHub below.</p>';
         });
     }
 
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver(
-        (es, o) => {
-          if (es[0].isIntersecting) {
-            o.disconnect();
-            go();
-          }
-        },
-        { rootMargin: "200px" },
-      ).observe(heat);
+      new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); go(); } }, { rootMargin: "200px" }).observe(heat);
     } else go();
   }
 
   /* ---------- Projects explorer (left tree + right cards) ---------- */
   function projects() {
-    const side = $("#pjTabs"),
-      main = $("#pjMain");
-    if (!side || !main) return;
+    const side = $("#pjTabs"), main = $("#pjMain"); if (!side || !main) return;
     const USER = "khaledhasanmilu";
     const gh = (n) => `https://github.com/${USER}/${n}`;
     const repo = (n) => [{ label: "View on GitHub →", href: gh(n) }];
@@ -1245,187 +917,50 @@
        Notun repo auto-ashbe jodi GitHub repo te topic dao: software / hardware / research / sqa / learning */
     const items = {
       software: [
-        {
-          name: "OAB Express",
-          status: "LIVE",
-          desc: "A courier and logistics platform built for real-world shipment and delivery operations.",
-          tags: [
-            "React",
-            "TypeScript",
-            "Tailwind CSS",
-            "Node.js",
-            "Express.js",
-          ],
-          img: "images/oab-express.png",
-          case: "oab",
-          links: [
-            {
-              label: "Visit Live Site →",
-              href: "https://www.oab-express.com/",
-            },
-          ],
-        },
-        {
-          name: "PhishGuard",
-          status: "PROJECT",
-          desc: "Got a strange SMS? Prize message? Bank warning? Unknown link? Paste it into PhishGuard and get a clear answer in seconds — safe or scam. No signup, no fees, nothing is stored.",
-          tags: ["SMS Safety", "Phishing", "No Signup"],
-          img: "images/phishguard.jpg",
-          case: "phishguard",
-          links: repo("SMS-Phising-Detection"),
-        },
-        {
-          name: "LifeSync",
-          repo: "LifeSync",
-          status: "REPO",
-          desc: "A personal productivity and habit-tracking application for organizing daily routines and goals.",
-          tags: ["React", "Node.js", "Express.js", "MySQL"],
-          img: "images/lifesync.png",
-          case: "lifesync",
-          links: repo("LifeSync"),
-        },
-        {
-          name: "UniHub",
-          repo: "UniHub",
-          status: "REPO",
-          desc: "A university resource and community hub built to centralize student information and tools.",
-          tags: ["HTML", "JavaScript", "Tailwind CSS", "Express.js", "MySQL"],
-          img: "images/unihub.png",
-          case: "unihub",
-          links: repo("UniHub"),
-        },
-        {
-          name: "Self Management",
-          repo: "Self_Management",
-          status: "REPO",
-          desc: "A Java-based project designed to help individuals manage and organize various aspects of their lives, from task management and goal setting to habit tracking, on a flexible and customizable platform.",
-          tags: ["Java"],
-          img: "images/self-management.jpg",
-          links: repo("Self_Management"),
-        },
+        { name: "OAB Express", status: "LIVE", desc: "A courier and logistics platform built for real-world shipment and delivery operations.", tags: ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express.js"], img: "images/oab-express.png", case: "oab", links: [{ label: "Visit Live Site →", href: "https://www.oab-express.com/" }] },
+        { name: "PhishGuard", status: "PROJECT", desc: "Got a strange SMS? Prize message? Bank warning? Unknown link? Paste it into PhishGuard and get a clear answer in seconds — safe or scam. No signup, no fees, nothing is stored.", tags: ["SMS Safety", "Phishing", "No Signup"], img: "images/phishguard.jpg", case: "phishguard", links: repo("SMS-Phising-Detection") },
+        { name: "LifeSync", repo: "LifeSync", status: "REPO", desc: "A personal productivity and habit-tracking application for organizing daily routines and goals.", tags: ["React", "Node.js", "Express.js", "MySQL"], img: "images/lifesync.png", case: "lifesync", links: repo("LifeSync") },
+        { name: "UniHub", repo: "UniHub", status: "REPO", desc: "A university resource and community hub built to centralize student information and tools.", tags: ["HTML", "JavaScript", "Tailwind CSS", "Express.js", "MySQL"], img: "images/unihub.png", case: "unihub", links: repo("UniHub") },
+        { name: "Self Management", repo: "Self_Management", status: "REPO", desc: "A Java-based project designed to help individuals manage and organize various aspects of their lives, from task management and goal setting to habit tracking, on a flexible and customizable platform.", tags: ["Java"], img: "images/self-management.jpg", links: repo("Self_Management") },
       ],
       hardware: [
-        {
-          name: "SPAK — Agriculture Rover",
-          status: "DEMO",
-          desc: "An agricultural rover built by our team for soil cultivation, water spraying, grass cutting, soil testing and seeding.",
-          tags: [
-            "Soil Cultivation",
-            "Water Spray",
-            "Grass Cutting",
-            "Soil Testing",
-            "Seeding",
-          ],
-          img: "https://img.youtube.com/vi/jeDA5cLB57M/mqdefault.jpg",
-          case: "spak",
-          links: [
-            { label: "Watch Demo →", href: "https://youtu.be/jeDA5cLB57M" },
-          ],
-        },
+        { name: "SPAK — Agriculture Rover", status: "DEMO", desc: "An agricultural rover built by our team for soil cultivation, water spraying, grass cutting, soil testing and seeding.", tags: ["Soil Cultivation", "Water Spray", "Grass Cutting", "Soil Testing", "Seeding"], img: "https://img.youtube.com/vi/jeDA5cLB57M/mqdefault.jpg", case: "spak", links: [{ label: "Watch Demo →", href: "https://youtu.be/jeDA5cLB57M" }] },
       ],
       research: [],
       sqa: [
-        {
-          name: "API Testing",
-          repo: "API_Testing",
-          status: "REPO",
-          desc: "A simple Flask API testing project to practice building and testing RESTful endpoints using tools like Postman or cURL.",
-          tags: ["Python", "Flask", "Postman", "cURL"],
-          img: "images/demo-api-testing.png",
-          links: repo("API_Testing"),
-        },
-        {
-          name: "Selenium Automation Testing",
-          repo: "Selenium_autometic_testing",
-          status: "REPO",
-          desc: "Automated browser testing with Selenium, fully Python-based.",
-          tags: ["Python", "Selenium"],
-          img: "images/demo-selenium.png",
-          links: repo("Selenium_autometic_testing"),
-        },
+        { name: "API Testing", repo: "API_Testing", status: "REPO", desc: "A simple Flask API testing project to practice building and testing RESTful endpoints using tools like Postman or cURL.", tags: ["Python", "Flask", "Postman", "cURL"], img: "images/demo-api-testing.png", links: repo("API_Testing") },
+        { name: "Selenium Automation Testing", repo: "Selenium_autometic_testing", status: "REPO", desc: "Automated browser testing with Selenium, fully Python-based.", tags: ["Python", "Selenium"], img: "images/demo-selenium.png", links: repo("Selenium_autometic_testing") },
       ],
       learning: [
-        {
-          name: "Python: Beginner to Advanced",
-          repo: "Python-Beginner-to-Advanced",
-          status: "REPO",
-          desc: "My target to complete the Python programming language and explore different types of projects with it.",
-          tags: ["Python"],
-          img: "images/demo-python.png",
-          links: repo("Python-Beginner-to-Advanced"),
-        },
-        {
-          name: "Data Structures & Algorithms with C++",
-          repo: "Data-Structure-and-Algorithm-With-CPP",
-          status: "REPO",
-          desc: "Implementations, notes and solutions covering a wide range of data structures and algorithms topics.",
-          tags: ["C++"],
-          img: "images/demo-dsa.png",
-          links: repo("Data-Structure-and-Algorithm-With-CPP"),
-        },
-        {
-          name: "Complete C++ Programming",
-          repo: "Complete_CPP_Programming",
-          status: "REPO",
-          desc: "C++ from basic syntax to advanced concepts like OOP, algorithms and data structures.",
-          tags: ["C++"],
-          img: "images/demo-cpp.png",
-          links: repo("Complete_CPP_Programming"),
-        },
-        {
-          name: "Complete C Programming",
-          repo: "Complete-C-Programming",
-          status: "REPO",
-          desc: "A comprehensive resource for learning C, from basic syntax and concepts to advanced topics and projects.",
-          tags: ["C"],
-          img: "images/demo-c.png",
-          links: repo("Complete-C-Programming"),
-        },
+        { name: "Python: Beginner to Advanced", repo: "Python-Beginner-to-Advanced", status: "REPO", desc: "My target to complete the Python programming language and explore different types of projects with it.", tags: ["Python"], img: "images/demo-python.png", links: repo("Python-Beginner-to-Advanced") },
+        { name: "Data Structures & Algorithms with C++", repo: "Data-Structure-and-Algorithm-With-CPP", status: "REPO", desc: "Implementations, notes and solutions covering a wide range of data structures and algorithms topics.", tags: ["C++"], img: "images/demo-dsa.png", links: repo("Data-Structure-and-Algorithm-With-CPP") },
+        { name: "Complete C++ Programming", repo: "Complete_CPP_Programming", status: "REPO", desc: "C++ from basic syntax to advanced concepts like OOP, algorithms and data structures.", tags: ["C++"], img: "images/demo-cpp.png", links: repo("Complete_CPP_Programming") },
+        { name: "Complete C Programming", repo: "Complete-C-Programming", status: "REPO", desc: "A comprehensive resource for learning C, from basic syntax and concepts to advanced topics and projects.", tags: ["C"], img: "images/demo-c.png", links: repo("Complete-C-Programming") },
       ],
       competitive: [
-        {
-          name: "Competitive Programming Solutions",
-          repo: "Competitive-Programming-Solutions",
-          status: "REPO",
-          desc: "Solutions to problems from Codeforces, CodeChef, LeetCode and beecrowd, shared for fellow beginner C++ learners.",
-          tags: ["C++", "Codeforces", "CodeChef", "LeetCode", "beecrowd"],
-          img: "images/demo-competitive.png",
-          links: repo("Competitive-Programming-Solutions"),
-        },
+        { name: "Competitive Programming Solutions", repo: "Competitive-Programming-Solutions", status: "REPO", desc: "Solutions to problems from Codeforces, CodeChef, LeetCode and beecrowd, shared for fellow beginner C++ learners.", tags: ["C++", "Codeforces", "CodeChef", "LeetCode", "beecrowd"], img: "images/demo-competitive.png", links: repo("Competitive-Programming-Solutions") },
       ],
     };
-    Object.values(items)
-      .flat()
-      .forEach((p) => {
-        p.key = norm(p.repo || p.name);
-      });
+    Object.values(items).flat().forEach((p) => { p.key = norm(p.repo || p.name); });
+    window.__PJ = items;
     /* ===================================================== */
 
-    let cur = "software",
-      showAll = false;
+    let cur = "software", showAll = false;
 
     function renderSide() {
       const hint = (CATS.find((c) => c.k === cur) || {}).hint || "";
-      side.innerHTML =
-        '<div class="pj__path mono">~/projects</div>' +
-        CATS.map(
-          (c, i) =>
-            `<button type="button" role="tab" class="pj__tab mono${c.k === cur ? " is-active" : ""}" data-k="${c.k}" aria-selected="${c.k === cur}"><span class="pj__branch">${i === CATS.length - 1 ? "└─" : "├─"}</span><span class="pj__name">${c.k}/</span><span class="pj__count">${items[c.k].length}</span></button>`,
-        ).join("") +
+      side.innerHTML = '<div class="pj__path mono">~/projects</div>' +
+        CATS.map((c, i) => `<button type="button" role="tab" class="pj__tab mono${c.k === cur ? " is-active" : ""}" data-k="${c.k}" aria-selected="${c.k === cur}"><span class="pj__branch">${i === CATS.length - 1 ? "└─" : "├─"}</span><span class="pj__name">${c.k}/</span><span class="pj__count">${items[c.k].length}</span></button>`).join("") +
         `<div class="pj__hint mono"># ${esc(hint)}</div>`;
     }
 
     function renderMain() {
-      const all = items[cur],
-        list = showAll ? all : all.slice(0, 12);
+      const all = items[cur], list = showAll ? all : all.slice(0, 12);
       if (!list.length) {
         main.innerHTML = `<div class="pj__empty mono">$ ls ${esc(cur)}/<br>(empty) — coming soon.<br>Meanwhile: <a href="https://github.com/${USER}?tab=repositories" target="_blank" rel="noopener">browse all repositories →</a></div>`;
         return;
       }
-      main.innerHTML =
-        list
-          .map(
-            (p, i) => `
+      main.innerHTML = list.map((p, i) => `
         <article class="pj-card" style="--i:${i}">
           ${p.img ? `<div class="pj-card__img"><img src="${esc(p.img)}" alt="${esc(p.name)} screenshot" loading="lazy" /></div>` : ""}
           <div class="pj-card__body">
@@ -1435,125 +970,60 @@
             <div class="tags mono">${p.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
             <div class="project__links">${p.links.map((l) => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}${p.case ? `<button type="button" class="case-btn" data-case="${esc(p.case)}">Case Study</button>` : ""}</div>
           </div>
-        </article>`,
-          )
-          .join("") +
-        (all.length > list.length
-          ? `<button type="button" class="pj__more mono" data-more>show all ${all.length} →</button>`
-          : "");
-      $$(".pj-card__img img", main).forEach((im) =>
-        im.addEventListener("error", () =>
-          im.closest(".pj-card__img").remove(),
-        ),
-      );
+        </article>`).join("") + (all.length > list.length ? `<button type="button" class="pj__more mono" data-more>show all ${all.length} →</button>` : "");
+      $$(".pj-card__img img", main).forEach((im) => im.addEventListener("error", () => {
+        const src = im.getAttribute("src") || "";
+        // images/ folder e na pele, index.html er pashe (root) e khujbe
+        if (!im.dataset.retry && src.startsWith("images/")) { im.dataset.retry = "1"; im.src = src.replace(/^images\//, ""); }
+        else im.closest(".pj-card__img").remove();
+      }));
     }
 
-    function select(k) {
-      cur = k;
-      showAll = false;
-      renderSide();
-      renderMain();
-    }
-    side.addEventListener("click", (e) => {
-      const b = e.target.closest(".pj__tab");
-      if (b) select(b.dataset.k);
-    });
+    function select(k) { cur = k; showAll = false; renderSide(); renderMain(); }
+    side.addEventListener("click", (e) => { const b = e.target.closest(".pj__tab"); if (b) select(b.dataset.k); });
     side.addEventListener("keydown", (e) => {
       if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
       e.preventDefault();
-      const ks = CATS.map((c) => c.k),
-        i = ks.indexOf(cur);
+      const ks = CATS.map((c) => c.k), i = ks.indexOf(cur);
       select(ks[(i + (e.key === "ArrowDown" ? 1 : ks.length - 1)) % ks.length]);
-      const a = $(".pj__tab.is-active", side);
-      if (a) a.focus();
+      const a = $(".pj__tab.is-active", side); if (a) a.focus();
     });
-    main.addEventListener("click", (e) => {
-      if (e.target.closest("[data-more]")) {
-        showAll = true;
-        renderMain();
-        return;
-      }
-      const b = e.target.closest(".case-btn");
-      if (b && window.__openCase) window.__openCase(b.dataset.case);
-    });
+    main.addEventListener("click", (e) => { if (e.target.closest("[data-more]")) { showAll = true; renderMain(); return; } const b = e.target.closest(".case-btn"); if (b && window.__openCase) window.__openCase(b.dataset.case); });
     select("software");
 
     // GitHub repo te topic (software/hardware/research/sqa/learning/competitive) dile auto-ashbe
     async function fetchRepos() {
-      try {
-        const c = JSON.parse(localStorage.getItem("gh-repos") || "null");
-        if (c && Date.now() - c.t < 6 * 3600 * 1000) return c.d;
-      } catch (e) {}
-      const r = await fetch(
-        `https://api.github.com/users/${USER}/repos?per_page=100&sort=updated`,
-      );
+      try { const c = JSON.parse(localStorage.getItem("gh-repos") || "null"); if (c && Date.now() - c.t < 6 * 3600 * 1000) return c.d; } catch (e) {}
+      const r = await fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=updated`);
       if (!r.ok) throw new Error("HTTP " + r.status);
-      const d = (await r.json()).map((x) => ({
-        name: x.name,
-        description: x.description,
-        language: x.language,
-        html_url: x.html_url,
-        topics: x.topics || [],
-        fork: x.fork,
-      }));
-      try {
-        localStorage.setItem("gh-repos", JSON.stringify({ t: Date.now(), d }));
-      } catch (e) {}
+      const d = (await r.json()).map((x) => ({ name: x.name, description: x.description, language: x.language, html_url: x.html_url, topics: x.topics || [], fork: x.fork }));
+      try { localStorage.setItem("gh-repos", JSON.stringify({ t: Date.now(), d })); } catch (e) {}
       return d;
     }
-    fetchRepos()
-      .then((list) => {
-        const have = new Set(
-          Object.values(items)
-            .flat()
-            .map((p) => p.key),
-        );
-        list.forEach((r) => {
-          if (r.fork || r.name.toLowerCase() === USER) return;
-          const k = norm(r.name);
-          if (have.has(k)) return;
-          const cat = CATS.map((c) => c.k).find((c) => r.topics.includes(c));
-          if (!cat) return;
-          have.add(k);
-          items[cat].push({
-            key: k,
-            name: r.name.replace(/[-_]+/g, " "),
-            desc: r.description || "",
-            tags: r.language ? [r.language] : [],
-            status: "REPO",
-            links: [{ label: "View on GitHub →", href: r.html_url }],
-          });
-        });
-        renderSide();
-        renderMain();
-      })
-      .catch(() => {});
+    fetchRepos().then((list) => {
+      const have = new Set(Object.values(items).flat().map((p) => p.key));
+      list.forEach((r) => {
+        if (r.fork || r.name.toLowerCase() === USER) return;
+        const k = norm(r.name); if (have.has(k)) return;
+        const cat = CATS.map((c) => c.k).find((c) => r.topics.includes(c));
+        if (!cat) return;
+        have.add(k);
+        items[cat].push({ key: k, name: r.name.replace(/[-_]+/g, " "), desc: r.description || "", tags: r.language ? [r.language] : [], status: "REPO", links: [{ label: "View on GitHub →", href: r.html_url }] });
+      });
+      renderSide(); renderMain();
+    }).catch(() => {});
   }
 
   /* ---------- Background FX (dots + binary, on/off) ---------- */
   function bgFx() {
-    const box = $("#bgFx");
-    if (!box) return;
-    const KEY = "khaled-exe-fx",
-      root = document.documentElement;
-    const apply = (on) => {
-      root.classList.toggle("fx-off", !on);
-      $$("[data-fx-toggle]").forEach((b) =>
-        b.setAttribute("aria-pressed", on ? "true" : "false"),
-      );
-    };
-    let saved = null;
-    try {
-      saved = localStorage.getItem(KEY);
-    } catch (e) {}
+    const box = $("#bgFx"); if (!box) return;
+    const KEY = "khaled-exe-fx", root = document.documentElement;
+    const apply = (on) => { root.classList.toggle("fx-off", !on); $$("[data-fx-toggle]").forEach((b) => b.setAttribute("aria-pressed", on ? "true" : "false")); };
+    let saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
     const n = matchMedia("(max-width: 700px)").matches ? 8 : 16;
     for (let i = 0; i < n; i++) {
-      const s = document.createElement("span");
-      s.className = "bin";
-      s.textContent = Array.from(
-        { length: 6 + Math.floor(Math.random() * 8) },
-        () => (Math.random() < 0.5 ? "0" : "1"),
-      ).join("");
+      const s = document.createElement("span"); s.className = "bin";
+      s.textContent = Array.from({ length: 6 + Math.floor(Math.random() * 8) }, () => (Math.random() < 0.5 ? "0" : "1")).join("");
       s.style.left = Math.random() * 96 + "%";
       s.style.fontSize = 10 + Math.random() * 4 + "px";
       s.style.animationDuration = 22 + Math.random() * 28 + "s";
@@ -1561,16 +1031,12 @@
       box.appendChild(s);
     }
     apply(saved !== "off");
-    $$("[data-fx-toggle]").forEach((b) =>
-      b.addEventListener("click", () => {
-        const on = root.classList.contains("fx-off");
-        apply(on);
-        try {
-          localStorage.setItem(KEY, on ? "on" : "off");
-        } catch (e) {}
-        toast("background fx :: " + (on ? "on" : "off"));
-      }),
-    );
+    $$("[data-fx-toggle]").forEach((b) => b.addEventListener("click", () => {
+      const on = root.classList.contains("fx-off");
+      apply(on);
+      try { localStorage.setItem(KEY, on ? "on" : "off"); } catch (e) {}
+      toast("background fx :: " + (on ? "on" : "off"));
+    }));
   }
 
   /* ---------- Extras: konami, console message, session uptime ---------- */
@@ -1579,52 +1045,24 @@
     console.log("%cKHALED.EXE", "font:700 20px monospace;color:#3d7bff");
     console.log("Reading the source? Let's talk → " + EMAIL);
 
-    const seq = [
-      "arrowup",
-      "arrowup",
-      "arrowdown",
-      "arrowdown",
-      "arrowleft",
-      "arrowright",
-      "arrowleft",
-      "arrowright",
-      "b",
-      "a",
-    ];
-    let i = 0;
+    const seq = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a"]; let i = 0;
     document.addEventListener("keydown", (e) => {
       const k = e.key.toLowerCase();
       i = k === seq[i] ? i + 1 : k === seq[0] ? 1 : 0;
-      if (i === seq.length) {
-        i = 0;
-        const b = $('[data-theme-btn="matrix"]');
-        if (b) b.click();
-        toast("konami unlocked :: matrix mode");
-      }
+      if (i === seq.length) { i = 0; const b = $('[data-theme-btn="matrix"]'); if (b) b.click(); toast("konami unlocked :: matrix mode"); }
     });
 
     const info = $(".build-info");
     if (info) {
-      const s = document.createElement("span");
-      info.appendChild(s);
+      const s = document.createElement("span"); info.appendChild(s);
       setInterval(() => {
         const d = Math.floor((Date.now() - t0) / 1000);
-        s.textContent =
-          " · SESSION :: " +
-          String(Math.floor(d / 60)).padStart(2, "0") +
-          ":" +
-          String(d % 60).padStart(2, "0");
+        s.textContent = " · SESSION :: " + String(Math.floor(d / 60)).padStart(2, "0") + ":" + String(d % 60).padStart(2, "0");
       }, 1000);
     }
   }
 
-  [caseStudies, projects, terminal, contactForm, github, bgFx, extras].forEach(
-    (fn) => {
-      try {
-        fn();
-      } catch (err) {
-        console.error("[KHALED.EXE] feature failed:", fn.name, err);
-      }
-    },
-  );
+  [caseStudies, projects, terminal, contactForm, github, bgFx, extras].forEach((fn) => {
+    try { fn(); } catch (err) { console.error("[KHALED.EXE] feature failed:", fn.name, err); }
+  });
 })();
